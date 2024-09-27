@@ -1,0 +1,166 @@
+import bpy
+import math
+
+# Delete all existing objects
+bpy.ops.object.select_all(action='DESELECT')
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete()
+
+# Create a torus (ring)
+bpy.ops.mesh.primitive_torus_add(
+    major_radius=1,  # Half of the x dimension (2.05m / 2)
+    minor_radius=0.04,  # Half of the z dimension (0.0565m / 2)
+    location=(0, 0, 0)
+)
+
+# Get the current object (Torus)
+ring = bpy.context.object
+
+# Set initial transformation (frame 0)
+ring.location = (0, 0, 0)
+ring.rotation_euler = (0, 0, 0)
+ring.scale = (0, 0, 0)
+
+# Insert keyframe for initial state
+ring.keyframe_insert(data_path="location", frame=0)
+ring.keyframe_insert(data_path="rotation_euler", frame=0)
+ring.keyframe_insert(data_path="scale", frame=1)
+
+# Set final transformation (frame 4320)
+ring.location = (0, 0, 0)
+ring.rotation_euler = (
+    math.radians(360),  # Rotation around X axis
+    math.radians(720),  # Rotation around Y axis
+    math.radians(1080)  # Rotation around Z axis
+)
+ring.scale = (1, 1, 1)
+
+# Insert keyframe for final state
+ring.keyframe_insert(data_path="location", frame=4320)
+ring.keyframe_insert(data_path="rotation_euler", frame=4320)
+ring.keyframe_insert(data_path="scale", frame=4320)
+
+# Set up the timeline for the torus
+bpy.context.scene.frame_start = 0
+bpy.context.scene.frame_end = 4320
+
+print("Torus animation created from frame 0 to 4320!")
+
+# Create a cylinder
+bpy.ops.mesh.primitive_cylinder_add(
+    radius=0.04,  # Radius for the x and y dimensions
+    depth=2,  # Depth for the z dimension
+    location=(0, 0, 0)
+)
+
+# Get the current object (cylinder)
+cylinder = bpy.context.object
+
+# Set initial transformation (frame 0)
+cylinder.scale = (0, 0, 0)
+cylinder.rotation_euler = (0, 0, 0)
+
+# Insert keyframes for initial state
+cylinder.keyframe_insert(data_path="scale", frame=0)
+cylinder.keyframe_insert(data_path="rotation_euler", frame=0)
+
+# Set final transformation (frame 4320)
+cylinder.scale = (1, 1, 1)
+cylinder.rotation_euler = (
+    math.radians(540),  # Rotation around X axis
+    math.radians(2160),  # Rotation around Y axis
+    math.radians(3240)  # Rotation around Z axis
+)
+
+# Insert keyframes for final state
+cylinder.keyframe_insert(data_path="scale", frame=4320)
+cylinder.keyframe_insert(data_path="rotation_euler", frame=4320)
+
+# Set up the timeline for the cylinder
+bpy.context.scene.frame_start = 0
+bpy.context.scene.frame_end = 4320
+
+print("Cylinder animation created from frame 0 to 4320!")
+
+# Custom Encoded System - Naemonin's Mapping
+
+encoded_data = {
+    "Group_00": {
+        "00": "0",
+        "01": "01"
+    },
+    "Group_01": {
+        "11": "44 512",
+        "12": "44 535"
+    },
+    "Group_21": {
+        "21": "87 1035",
+        "22": "87 1046"
+    },
+    "Group_31": {
+        "31": "109 1308",
+        "32": "110 1320"
+    },
+    "Group_41": {
+        "41": "123 1468",
+        "42": "123 1477"
+    },
+    "Group_51": {
+        "51": "137 1640",
+        "52": "137 1653"
+    },
+    "Group_61": {
+        "61": "146 1640",
+        "62": "146 1653"
+    },
+    "Group_71": {
+        "71": "159 10908",
+        "711": "160 1919",
+        "712": "161 1936",
+        "72": "162 1947"
+    },
+    "Group_81": {
+        "81": "178 2136",
+        "811": "179 2144",
+        "812": "180 2160",
+        "814": "182 2176",
+        "815": "183 2192",
+        "82": "184 2208"
+    },
+    "Group_91": {
+        "91": "200 2393",
+        "911": "200 2401",
+        "92": "200 2403"
+    },
+    "Group_101": {
+        "101": "208 2497",
+        "102": "209 2506",
+        "1011": "210 2507"
+    },
+    "Group_111": {
+        "111": "258 3085",
+        "112": "258 3098"
+    },
+    "Group_121": {
+        "121": "291 3485",
+        "1211": "291 3487",
+        "122": "291 3498"
+    },
+    "Group_1301": {
+        "1301": "314 3772",
+        "131": "315 3773",
+        "132": "315 3791",
+        "1302": "316 3792",
+        "13001": "316 3705"
+    }
+}
+
+# Function to print the structured mapping
+def print_encoded_data():
+    for group, subgroups in encoded_data.items():
+        print(f"{group}:")
+        for key, value in subgroups.items():
+            print(f"  {key}: {value}")
+
+# Call the function to print the data
+print_encoded_data()
