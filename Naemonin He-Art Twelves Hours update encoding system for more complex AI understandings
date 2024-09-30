@@ -19,7 +19,7 @@ ring = bpy.context.object
 # Set initial transformation (frame 0)
 ring.location = (0, 0, 0)
 ring.rotation_euler = (0, 0, 0)
-ring.scale = (0, 0, 0)
+ring.scale = (1, 1, 1)
 
 # Insert keyframe for initial state
 ring.keyframe_insert(data_path="location", frame=0)
@@ -57,7 +57,7 @@ bpy.ops.mesh.primitive_cylinder_add(
 cylinder = bpy.context.object
 
 # Set initial transformation (frame 0)
-cylinder.scale = (0, 0, 0)
+cylinder.scale = (1, 1, 1)
 cylinder.rotation_euler = (0, 0, 0)
 
 # Insert keyframes for initial state
